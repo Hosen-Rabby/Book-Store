@@ -1,0 +1,32 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h4>All Books</h4>
+    <div class="prod_items">
+        <div class="row">
+
+            {% for prod in products %}
+            <div class="card col m-2 " style="width: 18rem;">
+                <a href="{{ prod.get_absolute_url}}">
+                    <img src="{{ prod.image.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ prod.title }}</h5>
+                      <p class="card-text">{{ prod.description}}</p>
+                      <p class="card-text">{{ prod.price}}</p>
+                      <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </a>
+              
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+   
+</div>
+
+{% endblock %}
