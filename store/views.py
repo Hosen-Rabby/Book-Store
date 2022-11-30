@@ -3,7 +3,9 @@ from .models import Category, Product
 
 def all_products(request):
     products = Product.objects.all()
-    return render(request, 'store/home.html', {'products':products})
+    size = len(products)
+    return render(request, 'store/home.html', {'products':products, 'size':size})
+
     # print('products')
     
 def categories(request):
@@ -22,4 +24,7 @@ def prod_details(request, slug):
 def category_list(request, category_slug):
     category = get_object_or_404(Category, slug = category_slug)
     products = Product.objects.filter(category = category)
-    return render(request, 'store/category.html', {'products':products, 'category':category})
+    size = len(products)
+    return render(request, 'store/category.html', {'products':products, 'category':category, 'size':size})
+
+

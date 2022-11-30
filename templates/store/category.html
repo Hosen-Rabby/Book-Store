@@ -4,12 +4,12 @@
 {% block content %}
 
 <div class="container">
-    <h4>All Books</h4>
+    <h4>{{ category.name }} : {{size}}</h4>
     <div class="prod_items">
         <div class="row">
 
             {% for prod in products %}
-            <div class="card col m-2 " style="width: 18rem;">
+            <div class="card col-md-3 m-2 " style="width: 18rem;">
                 <a href="{{ prod.get_absolute_url}}">
                     <img src="{{ prod.image.url }}" class="card-img-top" alt="...">
                     <div class="card-body">
