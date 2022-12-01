@@ -4,6 +4,10 @@ from django.urls import reverse
 
 # Create your models here.
 
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_active = True)
+        
 # category table
 class Category(models.Model):
     name = models.CharField(max_length = 255, db_index = True)
@@ -26,7 +30,7 @@ class Product(models.Model):
     created_by = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'product_creator')
     title = models.CharField(max_length = 255, default = 'admin')
     description = models.TextField(blank = True)
-    image = models.ImageField(upload_to = 'image/')
+    image = models.ImageField(upload_to = 'image/', default='image/default.png')
     slug = models.SlugField(max_length = 255)
     price = models.DecimalField(max_digits = 8, decimal_places = 2)
     in_stock = models.BooleanField(default = True)
@@ -34,6 +38,8 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     updated = models.DateTimeField(auto_now = True)
     author = models.CharField(max_length = 255, default = 'admin')
+    objects = models.Manager()
+    products = ProductManager()
 
     class Meta:
         verbose_name_plural = 'products'

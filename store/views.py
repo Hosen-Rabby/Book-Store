@@ -7,12 +7,6 @@ def all_products(request):
     return render(request, 'store/home.html', {'products':products, 'size':size})
 
     # print('products')
-    
-def categories(request):
-    return {
-        'categories' : Category.objects.all()
-    }
-
     # categories = Category.objects.all()
 
 def prod_details(request, slug):
