@@ -9,7 +9,7 @@
         <div class="row">
 
             {% for prod in products %}
-            <div class="card col-md-2 m-2">
+            <div class="card col-md-2 col-sm-5 m-2">
                 <a href="{{ prod.get_absolute_url}}">
                     <img src="{{ prod.image.url }}" class="card-img-top" alt="...">
                     <div class="card-body">
