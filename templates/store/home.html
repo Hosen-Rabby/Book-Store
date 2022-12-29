@@ -7,7 +7,6 @@
     <h4>All Books : {{size}}</h4>
     <div class="prod_items">
         <div class="row">
-
             {% for prod in products %}
             <div class="card col-md-2 col-sm-5 m-2">
                 <a href="{{ prod.get_absolute_url}}">
@@ -18,15 +17,11 @@
                       <p class="card-text">{{ prod.price}}</p>
                       <a href="#" class="btn btn-primary">Buy Now</a>
                     </div>
-                </a>
-              
+                </a>              
             </div>
             {% endfor %}
-
         </div>
-
-    </div>
-   
+    </div>   
 </div>
 
 {% endblock %}

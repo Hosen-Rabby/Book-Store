@@ -19,6 +19,7 @@
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
+                            <option value="4">5</option>
                         </select>
                       <p class="card-text">{{ product.price}}</p>
                       <button id="add_button" value="{{product.id}}" class="btn btn-outline-success">Add to basket</button>
@@ -35,7 +36,7 @@
 <script>
     $(document).on('click', '#add_button', function(e){
         e.preventDefault();
-        console.log($('#select option:selected').text())
+        // console.log($('#select option:selected').text())
         $.ajax({
             type:'POST',
             url:'{% url "basket:basket_add" %}',
@@ -48,7 +49,6 @@
             success: function (json){
                 console.log(json);
                 document.getElementById('basket_qty').innerHTML = json.qty;
-
             },
             error: function(xhr, errmsg, err){}
         

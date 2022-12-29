@@ -40,8 +40,9 @@
                     </ul>
                     <div class="d-flex">
                         <a type="button" role="button" href="{% url "basket:basket_summary" %}" class="btn btn-outline-success" type="submit">
+
                             {% with total_qty=basket|length %}
-                            <span id="basket_qty">
+                            <span id="basket_qty" class="d-inline-flex">
                                 {% if total_qty > 0 %}
                                     {{ total_qty }}
                                 {% else %}
