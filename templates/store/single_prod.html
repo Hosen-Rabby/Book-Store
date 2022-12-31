@@ -37,6 +37,7 @@
     $(document).on('click', '#add_button', function(e){
         e.preventDefault();
         // console.log($('#select option:selected').text())
+        console.log('added')
         $.ajax({
             type:'POST',
             url:'{% url "basket:basket_add" %}',

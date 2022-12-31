@@ -1,6 +1,65 @@
-{% extends "../base.html" %}
-{% load static %}
-{% block title %}Basket Summary{% endblock %}
+{% extends "../base.html" %} 
+{% load static %} 
+{% block title %}Basket Summary{% endblock %} 
 {% block content %}
-Basket page
+
+<div class="container">
+  <h4>Sub total: ${{ basket.get_total_price}}</h4>
+
+  {% for item in basket %} 
+  {% with product=item.product%}
+  <div class="row border my-3">
+    <div class="col-md-4">
+      <div class="product_img">
+        <img src="{{product.image.url}}" alt="product image" class="img-fluid"/>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="product_info">
+        <div class="top d-flex justify-content-between">
+          <h4>{{product.title}}</h4>
+          <h4>$: {{item.total_price}}</h4>
+        </div>
+        <div class="bottom">
+          <label for="">Quantity</label>
+          <select id="select">
+            <option selected>{{item.qty}}</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="4">5</option>
+          </select>
+
+          <button type="button" id="update_btn" value="{{product.id}}" class="btn btn-outline-success">Update</button>
+          <button type="button" id="delete_btn" value="{{product.id}}" class="btn btn-outline-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endwith %} 
+  {% endfor %}
+
+</div>
+
+<script>
+  $(document).on('click', '#delete_btn', function(e){
+      e.preventDefault();
+      console.log('deleted')
+      $.ajax({
+          type:'POST',
+          url:'{% url "basket:basket_delete" %}',
+          data: {
+              productid: $('#delete_btn').val(),
+              csrfmiddlewaretoken: '{{csrf_token}}',
+              action: 'post'
+          },
+          success: function (json){
+          },
+          error: function(xhr, errmsg, err){}
+      
+      })
+  });
+</script>
 {% endblock %}
+
