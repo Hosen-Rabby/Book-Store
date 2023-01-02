@@ -8,7 +8,8 @@
 
   {% for item in basket %} 
   {% with product=item.product%}
-  <div class="row border my-3">
+
+  <div class="row border my-3 product_item" data-index="{{product.id}}">
     <div class="col-md-4">
       <div class="product_img">
         <img src="{{product.image.url}}" alt="product image" class="img-fluid"/>
@@ -22,7 +23,7 @@
         </div>
         <div class="bottom">
           <label for="">Quantity</label>
-          <select id="select">
+          <select id="select{{product.id}}">
             <option selected>{{item.qty}}</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -30,36 +31,60 @@
             <option value="4">4</option>
             <option value="4">5</option>
           </select>
-
-          <button type="button" id="update_btn" value="{{product.id}}" class="btn btn-outline-success">Update</button>
-          <button type="button" id="delete_btn" value="{{product.id}}" class="btn btn-outline-danger">Delete</button>
+          <button type="button" id="update_btn" data-index="{{product.id}}" class="btn btn-outline-success update_btn">Update</button>
+          <button type="button" id="delete_btn" data-index="{{product.id}}" class="btn btn-outline-danger delete_btn">Delete</button>
         </div>
       </div>
     </div>
   </div>
   {% endwith %} 
   {% endfor %}
-
 </div>
 
 <script>
-  $(document).on('click', '#delete_btn', function(e){
+
+  // delete item
+  $(document).on('click', '.delete_btn', function(e){
       e.preventDefault();
-      console.log('deleted')
+      console.log('deleted');
+      var prod_id =  $(this).data('index');
+      console.log(prod_id);
       $.ajax({
           type:'POST',
           url:'{% url "basket:basket_delete" %}',
           data: {
-              productid: $('#delete_btn').val(),
+              productid: $(this).data('index'),
               csrfmiddlewaretoken: '{{csrf_token}}',
               action: 'post'
           },
           success: function (json){
+            $('.product_item[data-index="'+ prod_id +'"]').remove();
           },
-          error: function(xhr, errmsg, err){}
-      
+          error: function(xhr, errmsg, err){}      
       })
   });
-</script>
-{% endblock %}
 
+// update item
+$(document).on('click', '.update_btn', function(e){
+    e.preventDefault();
+    console.log('updated');
+    var prod_id =  $(this).data('index');
+    console.log(prod_id);
+    $.ajax({
+        type:'POST',
+        url:'{% url "basket:basket_update" %}',
+        data: {
+            productid: $(this).data('index'),
+            productqty: $('#select' + prod_id + ' option:selected').text(),
+            csrfmiddlewaretoken: '{{csrf_token}}',
+            action: 'post'
+        },
+        success: function (json){
+          // $('.product_item[data-index="'+ prod_id +'"]').remove();
+        },
+        error: function(xhr, errmsg, err){}      
+    })
+});
+</script>
+
+{% endblock %}
