@@ -4,8 +4,8 @@
 {% block content %}
 
 <div class="container">
-  <h4>Sub total: ${{ basket.get_total_price}}</h4>
-
+  <h4>Sub total: $<span id="subtotal">{{ basket.get_total_price}}</span></h4>
+<h2>{{basket.basket_item}}</h2>
   {% for item in basket %} 
   {% with product=item.product%}
 
@@ -40,12 +40,11 @@
   {% endwith %} 
   {% endfor %}
 </div>
-
 <script>
 
   // delete item
   $(document).on('click', '.delete_btn', function(e){
-      e.preventDefault();
+      // e.preventDefault();
       console.log('deleted');
       var prod_id =  $(this).data('index');
       console.log(prod_id);
@@ -59,6 +58,8 @@
           },
           success: function (json){
             $('.product_item[data-index="'+ prod_id +'"]').remove();
+          document.getElementById('basket_qty').innerHTML = json.qty
+          document.getElementById('subtotal').innerHTML = json.subtotal
           },
           error: function(xhr, errmsg, err){}      
       })
@@ -81,6 +82,9 @@ $(document).on('click', '.update_btn', function(e){
         },
         success: function (json){
           // $('.product_item[data-index="'+ prod_id +'"]').remove();
+
+          document.getElementById('basket_qty').innerHTML = json.qty
+          document.getElementById('subtotal').innerHTML = json.subtotal
         },
         error: function(xhr, errmsg, err){}      
     })

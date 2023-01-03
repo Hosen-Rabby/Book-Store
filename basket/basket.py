@@ -25,10 +25,14 @@ class Basket():
         collect the produtc_id in the session data to query the database and return products
         '''
         product_ids = self.basket.keys()
+        basket_item = len(product_ids)
+        print('Basket item: ',basket_item)
+        # basket_val = basket.values()
+
+        # print('basket value:', basket)
+
         products = Product.products.filter(id__in=product_ids)
         basket = self.basket.copy()
-
-
 
         for product in products:
             basket[str(product.id)]['product'] = product
@@ -38,6 +42,12 @@ class Basket():
             item['total_price'] = item['price'] * item['qty']
             yield item
 
+    def basket_item(self):
+        product_ids = self.basket.keys()
+        item_count = len(product_ids)
+        return item_count
+
+        
     def __len__(self):
         '''
         get the basket data and count the quantity of items
@@ -48,13 +58,28 @@ class Basket():
         return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
 
     def delete(self, product):
+        '''
+        delete basket value
+        '''
         product_id = str(product)
-        print(type(product_id))
+        # print(type(product_id))
 
         if product_id in self.basket:
             del self.basket[product_id]
         self.save()
 
+    def update(self, product, qty):
+        '''
+        update basket value
+        '''
+        product_id = str(product)
+        qty = qty
+        # print(type(product_id))
+
+        if product_id in self.basket:
+            self.basket[product_id]['qty'] = qty            
+
+        self.save()
 
     def save(self):
         self.session.modified = True
