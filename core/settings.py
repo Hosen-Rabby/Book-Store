@@ -140,3 +140,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 AUTH_USER_MODEL = 'account.UserBase'
 LOGIN_REDIRECT_URL='/account/dashboard'
 LOGIN_URL='/account/login'
+
+# email setting
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# for force_text
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str

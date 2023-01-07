@@ -15,6 +15,18 @@
                                 <h3 class="mb-2 font-weight-bold">Create an account</h3>
                                 <p class="mb-4">It's free and only takes a minute</p>
 
+                                
+                                {% if form.errors %}
+                                <p>Please correct the following errors:</p>
+                                {% for field in form %}
+                                {% if field.errors %}
+                                <div class="alert alert-primary" role="alert">
+                                    {{ field.label }}: {{ field.errors|striptags }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+
                                 <label>{{ form.user_name.label }}<span class="text-muted small">(Required)</span></label>
                                 {{ form.user_name }} <br>
                                 <label>{{ form.email.label}}<span class="text-muted small">(Required)</span></label>
@@ -26,6 +38,8 @@
                                 {{ form.password }} <br>
                                 <label>{{ form.repeat_password.label }}<span class="text-muted small">(Required)</span></label>{{form.repeat_password}}
                                 <button class="btn btn-primary btn-block py-2 mb-4 mt-5 w-100" type='submit'>Register</button>
+
+                                <a href="">Already have an account?</a>
                             </form>
                         </div>
                     </div>

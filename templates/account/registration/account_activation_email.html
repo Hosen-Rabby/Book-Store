@@ -4,18 +4,3 @@ Hi {{ user.user_name }}
 Your account has been successfully created, please click below to activate your account.
 http://{{ domain }}{% 'account:activate' uidb64:uid token=token %}
 {{ % endautoescape % }}
-
-
-{% block title %}Register{% endblock $}
- <!-- <a href="{% url "account:login" %}">Already have an account?</a> -->
-
-{% if form.errors %}
-<p>Please correct the following errors:</p>
-{% for field in form %}
-{% if field.errors %}
-<div class="alert alert-primary" role="alert">
-    {{ field.label }} : {{ field.errors|striptages }}
-</div>
-{% endif %}
-{% endfor %}
-{% endif %}

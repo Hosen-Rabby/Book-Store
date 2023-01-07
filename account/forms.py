@@ -10,3 +10,43 @@ class RegistraionForm(forms.ModelForm):
     class Meta:
         model = UserBase
         fields = ('user_name', 'email')
+    
+    def clean_username(self):
+        user_name = self.cleaned_data['user_name'].lower()
+        r = UserBase.objects.filter(user_name = user_name)
+        if r.count():
+            raise forms.ValidationError('Username already exists.')
+        return user_name
+        
+    # def clean_repeat_password(self):
+    #     cd = self.cleaned_data
+    #     if cd['password'] != ['repeat_password']:
+    #         raise forms.ValidationError('Password do not match.')
+    #     return cd['repeat_password']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if UserBase.objects.filter(email = email).exists():
+            raise forms.ValidationError('Please use another email, that is already taken.')
+        return email
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user_name'].widget.attrs.update(
+            {'class':'form-control mb-3', 'placeholder': 'Username'}
+        )
+        
+        self.fields['email'].widget.attrs.update(
+            {'class':'form-control mb-3', 'placeholder': 'Email', 'name':'email'}
+        )
+        self.fields['password'].widget.attrs.update(
+            {'class':'form-control mb-3', 'placeholder': 'Password'}
+        )
+        
+        self.fields['repeat_password'].widget.attrs.update(
+            {'class':'form-control mb-3', 'placeholder': 'Repeat Password'}
+        )
+        
+    
+
