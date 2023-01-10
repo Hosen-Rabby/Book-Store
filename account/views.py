@@ -9,7 +9,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 # from orders.views import user_orders
 
-from .forms import RegistraionForm
+from .forms import RegistrationForm
 from .tokens import account_activation_token
 from .models import UserBase
 
@@ -20,13 +20,15 @@ def account_dashboard(request):
     return render(request, 'account/user/dashboard.html')
 
 def account_register(request):
+    # if request.user.is_authenticated:
+    #     return redirect('account:dashboard')
     
     if request.method == 'POST':
-        registraionForm = RegistraionForm(request.POST)
-        if registraionForm.is_valid():
-            user = registraionForm.save(commit=False)
-            user.email = registraionForm.cleaned_data['email']
-            user.set_password(registraionForm.cleaned_data['password'])
+        registrationForm = RegistrationForm(request.POST)
+        if registrationForm.is_valid():
+            user = registrationForm.save(commit=False)
+            user.email = registrationForm.cleaned_data['email']
+            user.set_password(registrationForm.cleaned_data['password'])
             user.is_active = False
             user.save()
 
@@ -42,17 +44,17 @@ def account_register(request):
             user.email_user(subject=subject, message=message)
             return HttpResponse('Successful')
     else:
-        registraionForm = RegistraionForm()
+        registrationForm = RegistrationForm()
 
 
-    return render(request, 'account/registration/register.html', {'form':registraionForm})
+    return render(request, 'account/registration/register.html', {'form':registrationForm})
 
 
 def account_activate(request, uidb64, token):
     try:                
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = UserBase.objects.get(pk=uid)
-    except():
+    except:
         pass
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
