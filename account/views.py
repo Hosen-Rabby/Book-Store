@@ -20,8 +20,8 @@ def account_dashboard(request):
     return render(request, 'account/user/dashboard.html')
 
 def account_register(request):
-    # if request.user.is_authenticated:
-    #     return redirect('account:dashboard')
+    if request.user.is_authenticated:
+        return redirect('account:dashboard')
     
     if request.method == 'POST':
         registrationForm = RegistrationForm(request.POST)
@@ -63,3 +63,7 @@ def account_activate(request, uidb64, token):
         return redirect('account:dashboard')
     else:
         return render(request, 'account/registraion/activation_invalid.html')
+
+
+def login():
+    return redirect('account:login')
