@@ -2,7 +2,12 @@ from django import forms
 from .models import UserBase
 from django.contrib.auth.forms import AuthenticationForm
 
+
+
+
+# user registration form
 class RegistrationForm(forms.ModelForm):
+
     user_name = forms.CharField(label = 'Enter username', min_length=4, max_length=50, help_text='enter username')
     email = forms.EmailField(max_length=100, help_text='Required', error_messages={'required': 'Sorry, you will need an email.'})
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -51,8 +56,9 @@ class RegistrationForm(forms.ModelForm):
         
     
 
-
+# user login form
 class UserLoginForm(AuthenticationForm):
+
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'login-username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
             'class': 'form-control',
@@ -60,6 +66,40 @@ class UserLoginForm(AuthenticationForm):
             'id': 'login-pwd',
         }
     ))
+
+
+# user edit form
+class UserEditForm(forms.ModelForm):
+
+    email = forms.EmailField(
+        label='Account email (can not be changed)', max_length=200, widget=forms.TextInput(
+            attrs={'class':'form-control mb-3', 'placeholder':'email', 'id':'form_email', 'readonly':'readonly'}
+        )
+    )
+
+    # user_name = forms.CharField(
+    #     label='Firstname', min_length=4, max_length=50, widget=forms.TextInput(
+    #         attrs={'class':'form-control mb-3', 'placeholder': 'User name','id':'form_firstname', 'readonly':'readonly'}
+    #     )
+    # )
+
+    first_name = forms.CharField(
+        label='Firstname', min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class':'form-control mb-3', 'placeholder': 'First name','id':'first_name'}
+        )
+    )
+
+
+    class Meta:
+        model = UserBase
+        fields = ('email', 'first_name')
+
+
+    def __int__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['email'].required = True
+
 
 # class PwdResetConfirmForm():
 # class PwdResetForm():

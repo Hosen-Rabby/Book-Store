@@ -1,6 +1,4 @@
 {% extends '../../store/base.html' %}
-
-
 {% block content %}
 
 <div class="container-fluid">
@@ -14,7 +12,6 @@
                                 {% csrf_token %}
                                 <h3 class="mb-2 font-weight-bold">Create an account</h3>
                                 <p class="mb-4">It's free and only takes a minute</p>
-
                                 
                                 {% if form.errors %}
                                 <p>Please correct the following errors:</p>
@@ -39,7 +36,8 @@
                                 <label>{{ form.repeat_password.label }}<span class="text-muted small">(Required)</span></label>{{form.repeat_password}}
                                 <button class="btn btn-primary btn-block py-2 mb-4 mt-5 w-100" type='submit'>Register</button>
 
-                                <a href="">Already have an account?</a>
+                                <a href="{% url "account:login" %}">Already have an account?</a>
+
                             </form>
                         </div>
                     </div>
