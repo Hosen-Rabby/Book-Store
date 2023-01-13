@@ -3,8 +3,6 @@ from .models import UserBase
 from django.contrib.auth.forms import AuthenticationForm
 
 
-
-
 # user registration form
 class RegistrationForm(forms.ModelForm):
 
@@ -23,7 +21,7 @@ class RegistrationForm(forms.ModelForm):
         if r.count():
             raise forms.ValidationError('Username already exists.')
         return user_name
-        
+    
     # def clean_repeat_password(self):
     #     cd = self.cleaned_data
     #     if cd['password'] != ['repeat_password']:
@@ -35,7 +33,6 @@ class RegistrationForm(forms.ModelForm):
         if UserBase.objects.filter(email = email).exists():
             raise forms.ValidationError('Please use another email, that is already taken.')
         return email
-
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -54,7 +51,6 @@ class RegistrationForm(forms.ModelForm):
             {'class':'form-control mb-3', 'placeholder': 'Repeat Password'}
         )
         
-    
 
 # user login form
 class UserLoginForm(AuthenticationForm):
