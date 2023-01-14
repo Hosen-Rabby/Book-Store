@@ -57,6 +57,13 @@
                                     Save Changes
                                 </button>
                             </form>
+
+                            <form action="{% url "account:profile_delete" %}">
+                                {% csrf_token %}
+                                <p>Delete Account</p>
+                                <p>Are you sure to delete your account?</p>
+                                <button type="submit" role="button" class="btn btn-danger">Delete</button>
+                            </form>
                      
                         </div>
                     </div>

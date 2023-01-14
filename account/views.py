@@ -29,7 +29,7 @@ def account_register(request):
             user = registrationForm.save(commit=False)
             user.email = registrationForm.cleaned_data['email']
             user.set_password(registrationForm.cleaned_data['password'])
-            user.is_active = False
+            user.is_active = True
             user.save()
 
             # setup email
@@ -79,3 +79,14 @@ def profile_edit(request):
         user_form = UserEditForm(instance=request.user)
 
     return render(request, 'account/user/profile_edit.html', {'user_form': user_form})
+
+
+# profile delete
+@login_required
+def profile_delete(request):
+
+    user = UserBase.objects.get(user_name=  request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete_confirmation')
