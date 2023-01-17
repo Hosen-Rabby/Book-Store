@@ -25,11 +25,12 @@ urlpatterns = [
         form_class=PwdResetConfirmForm), name = 'password_reset_confirm'),    
     path('password-reset/password-reset-email-confirm/', TemplateView.as_view(
         template_name = 'account/user/reset_status.html'), name = 'password_reset_done'),
-
+    path('password-reset-confirm/mg/password-reset-complete/', TemplateView.as_view(template_name='account/user/reset_status.html'), name = 'password_reset_complete'),
 
     path('register/', views.account_register, name='register'),
     path('activate/<uidb64>/<token>', views.account_activate, name='activate'),
     path('dashboard/', views.account_dashboard, name='dashboard'),
+
 
     # delete account
     path('frofile/edit/', views.profile_edit, name='profile_edit'),

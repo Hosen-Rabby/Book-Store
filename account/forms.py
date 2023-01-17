@@ -4,7 +4,6 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, Set
 
 # user registration form
 class RegistrationForm(forms.ModelForm):
-
     user_name = forms.CharField(label = 'Enter username', min_length=4, max_length=50, help_text='enter username')
     email = forms.EmailField(max_length=100, help_text='Required', error_messages={'required': 'Sorry, you will need an email.'})
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -37,8 +36,7 @@ class RegistrationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['user_name'].widget.attrs.update(
             {'class':'form-control mb-3', 'placeholder': 'Username'}
-        )
-        
+        )        
         self.fields['email'].widget.attrs.update(
             {'class':'form-control mb-3', 'placeholder': 'Email', 'name':'email'}
         )
@@ -55,6 +53,7 @@ class RegistrationForm(forms.ModelForm):
 class UserLoginForm(AuthenticationForm):
 
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'login-username'}))
+
     password = forms.CharField(widget=forms.PasswordInput(attrs={
             'class': 'form-control',
             'placeholder': 'Password',

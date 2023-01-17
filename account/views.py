@@ -77,7 +77,6 @@ def profile_edit(request):
         
     else:
         user_form = UserEditForm(instance=request.user)
-
     return render(request, 'account/user/profile_edit.html', {'user_form': user_form})
 
 
