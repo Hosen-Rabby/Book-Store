@@ -2,13 +2,38 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
 
+<style>
+    .edit_btn{
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid goldenrod;
+        padding: 10px 15px;
+        background-color: goldenrod;
+        border-radius: 3px;
+    }
+    .edit_btn:hover{
+        color: black;
+    }
 
-<div class="container-fluid">
+    .logout{
+        background-color: red;
+    }
+</style>
+
+<div class="container-fluid my-3">
     <div class="row no-gutter">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <h1>Dashboard</h1>
             <h5>Hello {{ user.user_name }}</h5>
-            <a href="{% url "account:profile_edit" %}">Edit Profile</a>
+            {% if user.is_authenticated %}
+            <a href="{% url "account:logout" %}"  class="edit_btn logout">Logout</a> 
+
+            {% else %}
+            <a href="{% url "account:login" %}">Login</a>
+            {% endif %}
+        </div>
+        <div class="col-md-2">
+            <a href="{% url "account:profile_edit" %}" class="edit_btn">Edit Profile</a>
         </div>
     </div>
 </div>
