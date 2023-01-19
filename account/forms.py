@@ -52,7 +52,7 @@ class RegistrationForm(forms.ModelForm):
 # user login form
 class UserLoginForm(AuthenticationForm):
 
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'login-username'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Enter email', 'id': 'login-username'}))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
             'class': 'form-control',
@@ -60,6 +60,7 @@ class UserLoginForm(AuthenticationForm):
             'id': 'login-pwd',
         }
     ))
+    
 
 
 # user edit form

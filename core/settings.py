@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # own
     'store',
     'basket',
-    'account'
+    'account',
+    'payment',
 ]
 
 MIDDLEWARE = [
