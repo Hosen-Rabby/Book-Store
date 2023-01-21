@@ -33,6 +33,12 @@
           </select>
           <button type="button" id="update_btn" data-index="{{product.id}}" class="btn btn-outline-success update_btn">Update</button>
           <button type="button" id="delete_btn" data-index="{{product.id}}" class="btn btn-outline-danger delete_btn">Delete</button>
+          <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
+            <div class="d-grid gap-2 ">
+              <a role="button" href="{% url "payment:paymentView" %}" class="btn btn-success fw-bold" type="button">Checkout</a>
+              <button class="btn btn-light" type="button">Save for later</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
