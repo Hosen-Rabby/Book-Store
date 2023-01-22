@@ -11,6 +11,7 @@ def payment_view(request):
     total = total.replace('.', '')
     total = int(total)
     print(total)
+    print(555)
     stripe.api_key = 'sk_test_51K7ynJGlpPduiwahiUaCtLBMeDpIIqxVRhugecNbRGmBzFDMuA4khyDmzMM0uUcsjZKRL0mWQhBqCnFB5Wqvg3dF00aVIkritV'
     
     intent = stripe.PaymentIntent.create(
@@ -22,3 +23,4 @@ def payment_view(request):
     return render(request, 'payment/payment_info.html', {'client_secret': intent.client_secret})
     print(intent)
     print('---',3)
+# Consolas, 'Courier New', monospace
