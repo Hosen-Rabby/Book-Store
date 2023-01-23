@@ -1,4 +1,4 @@
-var stripe = stripe('pk_test_51K7ynJGlpPduiwahpmSEfgFnDj8f7sAeC5lMt5lHwbhZ0eYAcxQ2bCUu8bXCmlV84YLKm5qXyDIJkVeGmq1p6ejQ00Y9di8G9M');
+var stripe = Stripe('pk_test_51K7ynJGlpPduiwahpmSEfgFnDj8f7sAeC5lMt5lHwbhZ0eYAcxQ2bCUu8bXCmlV84YLKm5qXyDIJkVeGmq1p6ejQ00Y9di8G9M');
 
 var elem = document.getElementById('submit');
 clientsecret = elem.getAttribute('data-secret');
@@ -8,7 +8,8 @@ var style = {
     base: {
         color: "#000",
         lineHeight: '2.4',
-        fontSize: '16px'
+        fontSize: '16px',
+        backgroundColor: '#232'
     }
 };
 

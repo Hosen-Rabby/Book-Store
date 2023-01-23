@@ -151,7 +151,7 @@
 <script>
   // {% comment %} Make csrf token availble in JS files {% endcomment %}
   var CSRF_TOKEN = "{{ csrf_token }}";
-  console.log(CSRF_TOKEN)
+  console.log('Token printed: ',CSRF_TOKEN)
 </script>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="{% static 'payment/index.js' %}" data-rel-js></script>
